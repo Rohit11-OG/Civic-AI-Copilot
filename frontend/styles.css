@@ -1,0 +1,1064 @@
+/* ============================================
+   CIVICMATE - 3D & GLASSMORPHISM DESIGN
+   Modern, Depth-focused, Professional
+   ============================================ */
+
+/* CSS Variables */
+:root {
+    /* Color Palette - Glass & 3D */
+    --bg-primary: #fcfcf9;     /* Fallback */
+    --glass-bg: rgba(255, 255, 255, 0.75); /* Frosted glass */
+    --glass-border: rgba(255, 255, 255, 0.6);
+    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15); /* Distinctive glass shadow */
+
+    --text-primary: #1a1a1a;
+    --text-secondary: #4a4a4a;
+    --text-tertiary: #6c757d;
+
+    --accent-primary: #d97757; /* Terra-cotta retained */
+    --accent-gradient: linear-gradient(135deg, #d97757 0%, #e89a7d 100%);
+    
+    --success: #2d5a3f;
+    --warning: #9a6b18;
+    --danger: #a63939;
+
+    /* Typography */
+    --font-serif: 'Merriweather', 'Georgia', serif;
+    --font-sans: 'Noto Sans Devanagari', 'Inter', system-ui, -apple-system, sans-serif;
+
+    /* Spacing - Optimized for Laptop */
+    --space-xs: 0.25rem;
+    --space-sm: 0.5rem;
+    --space-md: 1rem;
+    --space-lg: 1.25rem; 
+    --space-xl: 2rem;    
+    --space-2xl: 3rem;   
+
+    /* Shadows & Radius (3D Effects) */
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+    --shadow-md: 0 6px 12px rgba(0,0,0,0.08);
+    --shadow-lg: 0 15px 25px rgba(0,0,0,0.1); /* Floating effect */
+    --shadow-3d: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,0.1), 0 0 5px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.3);
+    
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px; /* Rounder for modern feel */
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: url('background.png') no-repeat center center fixed;
+    background-size: cover;
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    color: var(--text-primary);
+    text-shadow: 0 1px 2px rgba(255,255,255,0.8); /* Readability on bg */
+}
+
+/* Main Content Wrapper */
+.main-content {
+    position: relative; /* Context for absolute button */
+    padding-bottom: 3rem; /* Reserve space for the floating button */
+    min-height: 0;
+    height: auto;
+}
+
+/* ============================================
+   LAYOUT & GLASS CONTAINER
+   ============================================ */
+
+.app-container {
+    max-width: 1200px;
+    width: 95%;
+    margin: var(--space-xl) auto;
+    padding: var(--space-xl);
+    min-height: 0; /* Force no minimum height */
+    height: auto;
+    
+    /* Glassmorphism Effect */
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--glass-shadow);
+    
+    display: flex;
+    flex-direction: column;
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+
+/* ============================================
+   SPLASH SCREEN
+   ============================================ */
+.splash-screen {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: var(--bg-primary);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.8s ease-out, visibility 0.8s;
+}
+
+.splash-screen.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.splash-content {
+    text-align: center;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.splash-logo {
+    width: 80px;
+    margin-bottom: var(--space-md);
+    animation: pulse 2s infinite ease-in-out;
+}
+
+.splash-title {
+    font-size: 2.5rem;
+    color: var(--text-primary);
+    margin-bottom: var(--space-xs);
+}
+
+.splash-subtitle {
+    color: var(--text-tertiary);
+    font-size: 1.1rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+
+.header {
+    margin-bottom: var(--space-2xl);
+    text-align: center;
+}
+
+.logo-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-xs);
+}
+
+.header-logo {
+    width: 48px;
+    height: auto;
+}
+
+.logo-text h1 {
+    font-size: 2.5rem; /* Larger title */
+    margin-bottom: 0;
+    font-weight: 800; /* Extra bold */
+    letter-spacing: -0.02em;
+    /* 3D Text Effect */
+    text-shadow: 2px 2px 0px rgba(255,255,255,0.5), 4px 4px 0px rgba(0,0,0,0.1);
+}
+
+.nav-pills {
+    display: inline-flex;
+    margin-top: var(--space-lg);
+    background: rgba(255,255,255,0.5);
+    padding: 6px;
+    border-radius: 50px;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.nav-pill {
+    padding: var(--space-sm) var(--space-xl);
+    border: none;
+    background: transparent;
+    color: var(--text-tertiary);
+    cursor: pointer;
+    font-size: 0.95rem;
+    border-radius: 40px;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    font-weight: 600; /* Bolder navigation */
+}
+
+.nav-pill:hover {
+    color: var(--text-primary);
+}
+
+.nav-pill.active {
+    background: white;
+    color: var(--accent-primary);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transform: scale(1.05);
+    font-weight: 700; /* Active state bolder */
+}
+
+/* ============================================
+   3D CARDS & INPUTS
+   ============================================ */
+
+.upload-area {
+    background: rgba(255,255,255,0.9);
+    border: 2px dashed rgba(0,0,0,0.1);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    
+    /* 3D Initial State */
+    transform: perspective(1000px) rotateX(0deg);
+    box-shadow: var(--shadow-sm);
+}
+
+.upload-area:hover {
+    border-color: var(--accent-primary);
+    background: white;
+    /* 3D Lift Effect */
+    transform: perspective(1000px) rotateX(2deg) translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.analyze-btn {
+    background: var(--text-primary);
+    color: white;
+    border: none;
+    padding: var(--space-md) var(--space-2xl);
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    font-weight: 600; /* Bold button text */
+    cursor: pointer;
+    transition: all 0.2s ease;
+    
+    /* ButtonDepth */
+    box-shadow: 0 4px 0 #000, 0 5px 10px rgba(0,0,0,0.2); 
+    transform: translateY(0);
+}
+
+
+.analyze-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #000, 0 7px 15px rgba(0,0,0,0.2);
+}
+
+.analyze-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #000, 0 3px 6px rgba(0,0,0,0.2);
+}
+
+.result-card {
+    background: rgba(255,255,255,0.95);
+    border: none;
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    margin-bottom: var(--space-lg);
+    
+    /* Floating Card Effect */
+    box-shadow: var(--shadow-md);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.result-card:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: var(--shadow-lg);
+}
+
+.result-card h4 {
+    font-size: 1.2rem;
+    font-weight: 700; /* Stronger card headers */
+}
+
+/* ============================================
+   OTHER ELEMENTS
+   ============================================ */
+
+
+/* Chat Section - REMOVED OLD STYLES, NEW ONES IN SPLIT SECTION */
+
+
+/* Chat Input Container */
+.chat-input-area {
+    padding: var(--space-md);
+    background: white;
+    border-top: 1px solid rgba(0,0,0,0.1);
+    display: flex;
+    gap: var(--space-sm);
+    flex-shrink: 0; /* Prevent shrinking */
+    align-items: center;
+}
+
+.chat-input-area input {
+    flex: 1; /* Take available width */
+    padding: 12px 16px; /* Comfortable padding */
+    border: 2px solid rgba(0,0,0,0.1);
+    border-radius: var(--radius-md);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+    transition: all 0.2s;
+}
+
+.chat-input-area input:focus {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 4px rgba(217, 119, 87, 0.1);
+    outline: none;
+}
+
+.chat-input-area button {
+    background: var(--text-primary);
+    color: white;
+    border: none;
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-md); /* Consistent radius */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.chat-input-area button:hover {
+    background: var(--accent-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Sustainability Text Input Fix */
+.text-input-area {
+    width: 100%;
+    margin-bottom: var(--space-md);
+}
+
+.text-input-area textarea {
+    width: 100%;
+    min-height: 120px;
+    padding: var(--space-md);
+    border: 2px solid rgba(0,0,0,0.1);
+    border-radius: var(--radius-lg);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.5;
+    background: rgba(255,255,255,0.8);
+    transition: all 0.2s;
+    resize: vertical;
+}
+
+.text-input-area textarea:focus {
+    background: white;
+    border-color: var(--accent-primary);
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(217, 119, 87, 0.1);
+}
+
+.chat-input-area input:focus {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 4px rgba(217, 119, 87, 0.1);
+}
+
+/* Spinner */
+.loading-spinner {
+    border: 4px solid rgba(0,0,0,0.1);
+    border-top-color: var(--accent-primary);
+    width: 50px; height: 50px;
+}
+
+/* Footer */
+/* Footer */
+.footer {
+    color: var(--text-primary);
+    opacity: 0.7;
+    margin-top: var(--space-md); /* Reduced from space-xl to space-md */
+    padding-top: var(--space-sm);
+    font-weight: 500;
+}
+
+/* Ensure container doesn't stretch */
+.app-container {
+    height: fit-content;
+    display: block; /* Switch to block to avoid flex expansion issues if any */
+}
+
+/* Helper Classes */
+.upload-section {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.upload-header {
+    text-align: center;
+    margin-bottom: var(--space-lg);
+}
+
+.controls-wrapper {
+    margin-top: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+.language-select select {
+    padding: var(--space-sm) var(--space-md);
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: var(--radius-sm);
+    background: white;
+    box-shadow: var(--shadow-sm);
+}
+
+/* ============================================
+   SPLIT SCREEN LAYOUT
+   ============================================ */
+
+.split-container {
+    display: flex;
+    align-items: flex-start; /* Prevent stretching to tallest child */
+    overflow: hidden;
+    position: relative;
+    /* transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); */
+}
+
+/* Default State: Results Full Width */
+.results-pane {
+    width: 100%;
+    transition: width 0.4s ease;
+    padding-right: 0;
+}
+
+.chat-pane {
+    width: 0;
+    height: 0; /* Collapse height when hidden so it doesn't affect flow */
+    opacity: 0;
+    overflow: hidden;
+    transition: width 0.4s ease, opacity 0.3s ease 0.1s;
+    border-left: 1px solid rgba(0,0,0,0.05);
+}
+
+/* Active State: 50/50 Split */
+.split-container.chat-active .results-pane {
+    width: 50%;
+    padding-right: var(--space-xl);
+    height: calc(100vh - 140px); /* Fixed height for scrolling */
+    overflow-y: auto; /* Internal scroll */
+}
+
+.split-container.chat-active .chat-pane {
+    width: 50%;
+    opacity: 1;
+    padding-left: var(--space-xl);
+    height: calc(100vh - 140px); /* Fixed height */
+    position: sticky;
+    top: 20px;
+}
+
+/* Chat Section inside Split Pane */
+.chat-section {
+    background: rgba(255,255,255,0.95);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    margin-top: 0;
+    height: 100%; /* Fills pane */
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-history {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--space-lg);
+    background: #f0f2f5; /* WhatsApp-like background */
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+/* Chat Bubbles (Insta/WhatsApp style) */
+.chat-message {
+    max-width: 80%;
+    width: fit-content;
+    margin-bottom: 0; /* Handled by gap */
+    display: flex;
+    flex-direction: column;
+}
+
+.message-content {
+    padding: 12px 16px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    position: relative;
+    word-wrap: break-word;
+}
+
+/* AI Message (Left) */
+.ai-message {
+    align-self: flex-start;
+}
+
+.ai-message .message-content {
+    background: white;
+    color: var(--text-primary);
+    border-radius: 18px 18px 18px 4px; /* Round except bottom-left */
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+/* User Message (Right) */
+.user-message {
+    align-self: flex-end;
+}
+
+.user-message .message-content {
+    background: var(--accent-gradient); /* Terra-cotta gradient */
+    color: white;
+    border-radius: 18px 18px 4px 18px; /* Round except bottom-right */
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.chat-toggle-btn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 0;
+    background: var(--text-primary);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 50px; /* You might want border-top-left-radius only if flush, but user said keep rest */
+    border: none;
+    box-shadow: var(--shadow-lg);
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 0.02em;
+    font-size: 1.1rem;
+    letter-spacing: 0.02em;
+    display: flex; /* Visible by default for general chat */
+    align-items: center;
+    gap: 0.8rem;
+    cursor: pointer;
+    z-index: 100;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.chat-toggle-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+}
+
+.close-chat-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--text-tertiary);
+    cursor: pointer;
+    line-height: 1;
+}
+
+.close-chat-btn:hover {
+    color: var(--danger);
+}
+
+.result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-lg);
+    border-bottom: 2px solid rgba(0,0,0,0.05);
+    padding-bottom: var(--space-md);
+}
+
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+}
+
+.risk-item {
+    background: white;
+    border-left: 4px solid;
+    padding: var(--space-md);
+    margin-bottom: var(--space-sm);
+    box-shadow: var(--shadow-sm);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+.risk-item.high { border-color: var(--danger); }
+.risk-item.medium { border-color: var(--warning); }
+.risk-item.low { border-color: var(--success); }
+
+/* ============================================
+   DYNAMIC SUSTAINABILITY CARDS
+   ============================================ */
+
+.section-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: var(--space-sm);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.section-summary {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: var(--space-md);
+    padding: var(--space-md);
+    border-radius: var(--radius-sm);
+    background: rgba(255,255,255,0.6);
+    border-left: 4px solid;
+}
+
+.harmful-summary {
+    border-left-color: #e74c3c;
+    color: #c0392b;
+    background: rgba(231, 76, 60, 0.05);
+}
+
+.beneficial-summary {
+    border-left-color: #27ae60;
+    color: #1e8449;
+    background: rgba(39, 174, 96, 0.05);
+}
+
+.harmful-title {
+    color: #e74c3c;
+}
+
+.good-title {
+    color: #27ae60;
+    margin-top: var(--space-md);
+}
+
+.beneficial-title {
+    color: #27ae60;
+    margin-top: var(--space-xl);
+}
+
+.harmful-cards-container,
+.beneficial-cards-container {
+    margin-bottom: var(--space-xl);
+    padding: var(--space-lg);
+    background: rgba(255,255,255,0.5);
+    border-radius: var(--radius-lg);
+    backdrop-filter: blur(5px);
+}
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-lg);
+}
+
+/* Harmful Cards - Red/Orange/Yellow Theme (Severity-based) */
+.harmful-card {
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 2px solid;
+}
+
+.harmful-card.severity-high {
+    background: linear-gradient(135deg, rgba(231, 76, 60, 0.2) 0%, rgba(192, 57, 43, 0.15) 100%);
+    border-color: rgba(231, 76, 60, 0.4);
+    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.25);
+}
+
+.harmful-card.severity-medium {
+    background: linear-gradient(135deg, rgba(230, 126, 34, 0.2) 0%, rgba(211, 84, 0, 0.15) 100%);
+    border-color: rgba(230, 126, 34, 0.4);
+    box-shadow: 0 4px 15px rgba(230, 126, 34, 0.25);
+}
+
+.harmful-card.severity-low {
+    background: linear-gradient(135deg, rgba(241, 196, 15, 0.2) 0%, rgba(243, 156, 18, 0.15) 100%);
+    border-color: rgba(241, 196, 15, 0.4);
+    box-shadow: 0 4px 15px rgba(241, 196, 15, 0.25);
+}
+
+.harmful-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(231, 76, 60, 0.35);
+}
+
+.harmful-card .card-icon {
+    font-size: 3rem;
+    margin-bottom: var(--space-sm);
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+.harmful-card .card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #c0392b;
+    margin-bottom: var(--space-xs);
+}
+
+.harmful-card .card-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #e74c3c;
+    margin-bottom: var(--space-xs);
+}
+
+.harmful-card .card-impact {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+/* Good Items Badges */
+.good-items-container {
+    margin: var(--space-lg) 0;
+    padding: var(--space-md);
+    background: linear-gradient(135deg, rgba(39, 174, 96, 0.1) 0%, rgba(46, 204, 113, 0.05) 100%);
+    border-radius: var(--radius-md);
+    border-left: 4px solid #27ae60;
+}
+
+.good-items-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-top: var(--space-sm);
+}
+
+.good-item-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-sm) var(--space-md);
+    background: rgba(39, 174, 96, 0.15);
+    border: 1px solid rgba(39, 174, 96, 0.3);
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+}
+
+.good-item-badge .good-icon {
+    font-size: 1.2rem;
+}
+
+.good-item-badge .good-text {
+    font-weight: 600;
+    color: #27ae60;
+}
+
+.good-item-badge .good-praise {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    margin-left: var(--space-xs);
+}
+
+/* Beneficial Cards - Green Theme */
+.beneficial-card {
+    background: linear-gradient(135deg, rgba(39, 174, 96, 0.15) 0%, rgba(46, 204, 113, 0.1) 100%);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    box-shadow: 0 4px 15px rgba(39, 174, 96, 0.2);
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 2px solid rgba(39, 174, 96, 0.3);
+}
+
+.beneficial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(39, 174, 96, 0.3);
+    border-color: rgba(39, 174, 96, 0.5);
+}
+
+.beneficial-card .card-icon {
+    font-size: 3rem;
+    margin-bottom: var(--space-sm);
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+.beneficial-card .card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #27ae60;
+    margin-bottom: var(--space-xs);
+}
+
+.beneficial-card .card-savings {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #2ecc71;
+    margin-bottom: var(--space-xs);
+}
+
+.beneficial-card .card-benefit {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-xs);
+}
+
+.beneficial-card .card-difficulty {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: rgba(39, 174, 96, 0.2);
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #27ae60;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+@media (max-width: 768px) {
+    .cards-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+    }
+    
+    .section-title {
+        font-size: 1.1rem;
+    }
+    
+    .good-items-list {
+        flex-direction: column;
+    }
+}
+
+/* ============================================
+   SUSTAINABILITY SUMMARY SECTION REDESIGN
+   ============================================ */
+
+.impact-meter {
+    background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 100%);
+    backdrop-filter: blur(10px);
+    padding: var(--space-lg);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-lg);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border: 1px solid rgba(255,255,255,0.3);
+}
+
+.meter-label {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: var(--space-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.meter-bar {
+    height: 12px;
+    background: linear-gradient(90deg, #27ae60 0%, #f39c12 50%, #e74c3c 100%);
+    border-radius: var(--radius-sm);
+    position: relative;
+    overflow: hidden;
+    margin: var(--space-sm) 0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.meter-fill {
+    height: 100%;
+    background: rgba(255,255,255,0.4);
+    backdrop-filter: blur(5px);
+    border-right: 3px solid white;
+    box-shadow: 0 0 10px rgba(255,255,255,0.5);
+    transition: width 0.6s ease;
+}
+
+.meter-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-top: var(--space-xs);
+}
+
+.impact-description {
+    background: linear-gradient(135deg, rgba(52, 152, 219, 0.1) 0%, rgba(41, 128, 185, 0.05) 100%);
+    padding: var(--space-lg);
+    border-radius: var(--radius-md);
+    border-left: 4px solid #3498db;
+    margin-bottom: var(--space-lg);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--text-primary);
+    box-shadow: 0 2px 8px rgba(52, 152, 219, 0.1);
+}
+
+.fun-fact {
+    background: linear-gradient(135deg, rgba(155, 89, 182, 0.1) 0%, rgba(142, 68, 173, 0.05) 100%);
+    padding: var(--space-lg);
+    border-radius: var(--radius-md);
+    border-left: 4px solid #9b59b6;
+    margin-bottom: var(--space-lg);
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-primary);
+    font-style: italic;
+    box-shadow: 0 2px 8px rgba(155, 89, 182, 0.1);
+}
+
+.fun-fact::before {
+    content: "💡 ";
+    font-style: normal;
+    font-size: 1.3rem;
+    margin-right: var(--space-xs);
+}
+
+/* ============================================
+   3D FLIP CARD FUNCTIONALITY
+   ============================================ */
+
+.card-flip-container {
+    perspective: 1000px;
+    cursor: pointer;
+    height: 100%;
+    min-height: 280px;
+}
+
+.card-flipper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.card-flip-container.flipped .card-flipper {
+    transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+.card-front {
+    transform: rotateY(0deg);
+}
+
+.card-back {
+    transform: rotateY(180deg);
+}
+
+.flip-indicator {
+    font-size: 0.75rem;
+    color: var(--text-tertiary);
+    text-align: center;
+    margin-top: auto;
+    padding-top: var(--space-sm);
+    opacity: 0.6;
+    font-style: italic;
+    flex-shrink: 0;
+}
+
+.back-header {
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: var(--space-md);
+    padding-bottom: var(--space-sm);
+    border-bottom: 2px solid rgba(255,255,255,0.3);
+    flex-shrink: 0;
+}
+
+.back-content {
+    flex: 1;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: var(--space-xs);
+}
+
+.back-content::-webkit-scrollbar {
+    width: 4px;
+}
+
+.back-content::-webkit-scrollbar-track {
+    background: rgba(0,0,0,0.1);
+    border-radius: 2px;
+}
+
+.back-content::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.3);
+    border-radius: 2px;
+}
+
+.back-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(0,0,0,0.5);
+}
+
+.back-content p {
+    margin-bottom: var(--space-sm);
+}
+
+.back-content strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+/* Ensure cards maintain proper sizing when flipped */
+.harmful-card.card-front,
+.harmful-card.card-back,
+.beneficial-card.card-front,
+.beneficial-card.card-back {
+    min-height: 280px;
+}
+
+@media (max-width: 768px) {
+    .card-flip-container {
+        min-height: 320px;
+    }
+    
+    .harmful-card.card-front,
+    .harmful-card.card-back,
+    .beneficial-card.card-front,
+    .beneficial-card.card-back {
+        min-height: 320px;
+    }
+}

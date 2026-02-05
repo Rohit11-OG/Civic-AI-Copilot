@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CivicMate - AI Copilot for understanding legal documents and sustainability in simple language">
+    <title>CivicMate | Civic AI Copilot</title>
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Research Grade Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Splash Screen -->
+    <div id="splash-screen" class="splash-screen">
+        <div class="splash-content">
+            <img src="logo.png" alt="CivicMate Logo" class="splash-logo">
+            <h1 class="splash-title">CivicMate</h1>
+            <p class="splash-subtitle">Empowering Citizens</p>
+        </div>
+    </div>
+
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo-text">
+                <div class="logo-wrapper">
+                    <img src="logo.png" alt="CivicMate Logo" class="header-logo">
+                    <h1>CivicMate</h1>
+                </div>
+                <p class="tagline">Research-grade document intelligence for Indian citizens</p>
+            </div>
+            <nav class="nav-pills">
+                <button class="nav-pill active" data-mode="legal">Legal Help</button>
+                <button class="nav-pill" data-mode="sustainability">Sustainability</button>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content" style="position: relative;">
+            
+            <!-- Floating Chat Toggle (Positioned Absolute to Main) -->
+            <button class="chat-toggle-btn" id="chat-toggle-btn" title="Open Assistant">
+                <span class="icon">💬</span> Ask AI
+            </button>
+
+            <!-- Split Screen Container -->
+            <div class="split-container" id="split-container">
+                
+                <!-- Results Pane (Now Left Pane for ALL Content) -->
+                <div class="results-pane" id="results-pane">
+                    
+                    <!-- Upload Section -->
+                    <section class="upload-section">
+                        <div class="upload-header">
+                            <h2 id="upload-title">Analyze Legal Documents</h2>
+                            <p id="upload-description">Upload court notices or legal letters to get a simplified explanation.</p>
+                        </div>
+                        
+                        <div class="upload-area" id="upload-area">
+                            <div class="upload-icon">📄</div>
+                            <span class="upload-text">Click to upload or drag and drop</span>
+                            <span class="upload-subtext">PDF, PNG, JPG (Max 16MB)</span>
+                            <input type="file" id="file-input" accept=".pdf,.png,.jpg,.jpeg,.webp" hidden>
+                            <div class="file-preview" id="file-preview" style="display: none;">
+                                <span class="file-name" id="file-name"></span>
+                                <button class="remove-file" id="remove-file" aria-label="Remove file">×</button>
+                            </div>
+                        </div>
+
+                        <div class="text-input-area" id="text-input-area" style="display: none;">
+                            <textarea id="habit-input" placeholder="Describe habits or paste receipt text here..."></textarea>
+                            <button class="mic-btn" id="habit-mic-btn" title="Speak to input">🎤</button>
+                        </div>
+
+                        <div class="controls-wrapper">
+                            <div class="language-select" id="language-select">
+                                <select id="language">
+                                                                        <option value="English">Explain in English</option>
+                                    <option value="Hindi">Explain in Hindi</option>
+                                </select>
+                            </div>
+            
+                            <button class="analyze-btn" id="analyze-btn">
+                                Analyze Document
+                            </button>
+                        </div>
+                    </section>
+
+                    <!-- Loading State -->
+                    <section class="loading-section" id="loading-section" style="display: none;">
+                        <div class="loading-spinner"></div>
+                        <p class="loading-text">Processing document...</p>
+                        <p class="loading-subtext">Generating insightful analysis</p>
+                    </section>
+                    
+                    <!-- Results Section -->
+                    <section class="results-section" id="results-section" style="display: none;">
+                        
+                        <div class="result-header">
+                            <div>
+                                <span class="doc-type-badge" id="doc-type-badge">LEGAL NOTICE</span>
+                                <h3 id="result-title">Analysis Result</h3>
+                            </div>
+                            <!-- Post-Analysis Language Switch -->
+                            <div class="language-select">
+                                <select id="result-language-select">
+                                    <option value="English">English</option>
+                                    <option value="Hindi">Hindi</option>
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Legal Summary -->
+                        <div class="result-card" id="summary-card">
+                            <div class="card-header">
+                                <h4>Summary</h4>
+                            </div>
+                            <p class="summary-text" id="summary-text"></p>
+                        </div>
+
+                        <!-- Key Points -->
+                        <div class="result-card" id="keypoints-card">
+                            <div class="card-header">
+                                <h4>Key Observations</h4>
+                            </div>
+                            <ul class="key-points-list" id="key-points-list"></ul>
+                        </div>
+
+                        <!-- Risks -->
+                        <div class="result-card risks-card" id="risks-card">
+                            <div class="card-header">
+                                <h4>Risks & Deadlines</h4>
+                            </div>
+                            <div class="risks-container" id="risks-container"></div>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="result-card" id="actions-card">
+                            <div class="card-header">
+                                <h4>Recommended Actions</h4>
+                            </div>
+                            <ol class="actions-list" id="actions-list"></ol>
+                        </div>
+
+                        <!-- Draft Reply -->
+                        <div class="result-card" id="draft-card" style="display: none;">
+                            <div class="card-header">
+                                <h4>Draft Reply</h4>
+                                <button class="copy-btn" id="copy-draft">Copy</button>
+                            </div>
+                            <div class="draft-content" id="draft-content" contenteditable="true"></div>
+                        </div>
+
+                        <!-- Sustainability Results -->
+                        <div class="result-card sustainability-results" id="sustainability-card" style="display: none;">
+                            <div class="impact-meter">
+                                <div class="meter-label">Environmental Impact Score</div>
+                                <div class="meter-bar">
+                                    <div class="meter-fill" id="impact-fill"></div>
+                                </div>
+                                <div class="meter-labels">
+                                    <span>Low Impact</span>
+                                    <span>High Impact</span>
+                                </div>
+                            </div>
+                            <div class="impact-description" id="impact-description"></div>
+                            <div class="alternatives-container" id="alternatives-container"></div>
+                            <div class="fun-fact" id="fun-fact"></div>
+                        </div>
+
+                        <!-- Disclaimer -->
+                        <div class="disclaimer-card" id="disclaimer-card">
+                            <p id="disclaimer-text">Disclaimer: AI-generated information. Always verify with a qualified professional.</p>
+                        </div>
+
+                        <div style="text-align: center; margin-top: 2rem; margin-bottom: 0;">
+                            <button class="analyze-btn" id="new-analysis-btn" style="background: var(--bg-secondary); color: var(--text-primary);">
+                                Analyze Another Document
+                            </button>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Chat Pane (Right Side) -->
+                <div class="chat-pane" id="chat-pane">
+                    <section class="chat-section" id="chat-section">
+                        <div class="card-header chat-header">
+                            <div style="display:flex; align-items:center; gap:0.5rem;">
+                                <span class="card-icon">💬</span>
+                                <h4>Q&A Assistant</h4>
+                            </div>
+                            <button class="close-chat-btn" id="close-chat-btn">×</button>
+                        </div>
+                        <div class="chat-history" id="chat-history">
+                            <div class="chat-message ai-message">
+                                <div class="message-content">I've analyzed the document. Feel free to ask clarifying questions.</div>
+                            </div>
+                        </div>
+                        <div class="chat-input-area">
+                            <button class="mic-btn" id="chat-mic-btn" title="Speak">🎤</button>
+                            <input type="text" id="chat-input" placeholder="Ask a question about this document...">
+                            <button id="send-chat-btn">
+                                <span>➤</span>
+                            </button>
+                        </div>
+                    </section>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>CivicMate • Research Preview • NxtWave Buildathon 2026</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

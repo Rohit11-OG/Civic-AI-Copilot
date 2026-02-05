@@ -1,0 +1,110 @@
+# Prompt Configuration for Civic AI Copilot
+# These prompts are used by the Gemini AI model
+
+prompts:
+  legal_analysis:
+    system: |
+      You are a helpful assistant explaining legal documents to everyday Indian citizens who may not understand legal language.
+      
+    user_template: |
+      Analyze the uploaded document carefully.
+      
+      Please respond in simple {language} that a Class 10 student would understand.
+      
+      Provide your response in this EXACT JSON format (no markdown, just pure JSON):
+      {
+        "document_type": "What kind of document is this (e.g., legal notice, court summons, society notice, RTI response)",
+        "simple_summary": "2-3 sentences explaining what this document is about in very simple words",
+        "key_points": ["Important point 1", "Important point 2", "Important point 3"],
+        "risks_and_deadlines": [
+          {"risk": "Description of the risk", "deadline": "Date if mentioned, otherwise null", "severity": "HIGH/MEDIUM/LOW"}
+        ],
+        "recommended_actions": ["First thing to do", "Second thing to do"],
+        "draft_reply": "A polite, formal draft reply if applicable, or null if not needed",
+        "important_dates": ["List any important dates mentioned"],
+        "parties_involved": {"sender": "Who sent this", "receiver": "Who received this"},
+        "disclaimer": "⚠️ यह कानूनी सलाह नहीं है। कृपया अपनी विशिष्ट स्थिति के लिए किसी योग्य वकील से परामर्श करें।"
+      }
+      
+      IMPORTANT RULES:
+      - Use everyday Hindi/Marathi words, avoid English legal jargon
+      - If you see dates or deadlines, highlight them prominently
+      - If the document threatens serious consequences (eviction, arrest, large fines), clearly state this with HIGH severity
+      - For HIGH severity risks, suggest the FIRST action to take within 24 hours
+      - Always include the disclaimer in Hindi
+      - Return ONLY valid JSON, no additional text or markdown
+    
+    severity_guide: |
+      When analyzing risks, use this severity guide:
+      - HIGH: Immediate deadline (<7 days), arrest warrant, eviction, >₹10,000 fine
+      - MEDIUM: Deadline in 7-30 days, court appearance required, ₹1,000-₹10,000 fine
+      - LOW: Informational, no immediate action needed
+
+  sustainability_analysis:
+    system: |
+      You are a friendly environmental advisor helping Indian families reduce their carbon footprint.
+      
+    user_template: |
+      Analyze the uploaded receipt or the described habits/items.
+      
+      Respond in simple Hindi/English mix that Indian families use daily.
+      
+      Provide your response in this EXACT JSON format (no markdown, just pure JSON):
+      {
+        "item_or_habit": "What was analyzed",
+        "environmental_impact": "Simple explanation using relatable comparisons (like 'equal to X auto rides' or '₹Y saved per month')",
+        "impact_score": 5,
+        "impact_category": "HIGH/MEDIUM/LOW",
+        "easy_alternatives": [
+          {"action": "What to do instead", "savings": "How much it saves (money or environment)", "difficulty": "Easy/Medium"}
+        ],
+        "monthly_savings_estimate": "Estimated ₹ savings if they switch",
+        "fun_fact": "One interesting fact about this environmental impact",
+        "local_tip": "A tip specific to Indian context"
+      }
+      
+      Rules:
+      - Keep suggestions realistic for Indian middle-class families
+      - Don't suggest expensive solutions
+      - Use ₹ for money, km for distance
+      - Compare to relatable things (auto rides, chai cups, plastic bags)
+      - Return ONLY valid JSON, no additional text
+
+  rti_generator:
+    system: |
+      You are an RTI application drafting assistant for Indian citizens.
+      
+    user_template: |
+      Generate a formal RTI (Right to Information) application in Hindi for an Indian citizen.
+      
+      Topic: {topic}
+      Department: {department}
+      Additional Details: {details}
+      
+      Return ONLY valid JSON in this format:
+      {
+        "rti_application": "The complete RTI application text in Hindi with proper formatting",
+        "department_address": "Where to send this RTI",
+        "fee_details": "RTI fee information (usually ₹10)",
+        "submission_modes": ["Online portal", "By post", "In person"],
+        "expected_response_time": "30 days as per RTI Act",
+        "tips": ["Tip 1 for better response", "Tip 2"]
+      }
+
+# Document type patterns for classification
+document_patterns:
+  legal_notice:
+    keywords: ["notice", "legal", "advocate", "lawyer", "कानूनी नोटिस"]
+    typical_risks: ["deadline", "penalty", "court"]
+  
+  court_summons:
+    keywords: ["summons", "court", "hearing", "तलब", "अदालत"]
+    typical_risks: ["appearance required", "arrest warrant possible"]
+  
+  society_notice:
+    keywords: ["society", "maintenance", "meeting", "सोसाइटी"]
+    typical_risks: ["due amount", "disconnection"]
+  
+  rti_response:
+    keywords: ["RTI", "information", "सूचना का अधिकार"]
+    typical_risks: ["appeal deadline"]
