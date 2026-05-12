@@ -225,7 +225,7 @@ def health_check():
 def analyze_legal():
     """Analyze a legal document"""
     if not client:
-        return jsonify({"error": "Groq API key not configured"}), 500
+        return jsonify({"error": "NVIDIA API key not configured"}), 500
     
     try:
         # Check if file was uploaded
@@ -314,7 +314,7 @@ def analyze_legal():
 def analyze_sustainability():
     """Analyze receipt or habits for sustainability"""
     if not client:
-        return jsonify({"error": "Groq API key not configured"}), 500
+        return jsonify({"error": "NVIDIA API key not configured"}), 500
     
     try:
         # Get language preference
@@ -407,7 +407,7 @@ def analyze_sustainability():
 def generate_rti():
     """Generate RTI template based on context"""
     if not client:
-        return jsonify({"error": "Groq API key not configured"}), 500
+        return jsonify({"error": "NVIDIA API key not configured"}), 500
     
     try:
         data = request.get_json()
@@ -465,7 +465,7 @@ Return ONLY valid JSON in this format:
 def chat():
     """Chat channel for follow-up questions"""
     if not client:
-        return jsonify({"error": "Groq API key not configured"}), 500
+        return jsonify({"error": "NVIDIA API key not configured"}), 500
 
     try:
         data = request.get_json()
