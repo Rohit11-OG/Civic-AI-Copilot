@@ -213,9 +213,14 @@ IMPORTANT RULES:
 @app.route('/api/health', methods=['GET'])
 def health_check():
     """Health check endpoint"""
+    runtime_key = os.environ.get('NVIDIA_API_KEY')
+    nvidia_env_keys = sorted(k for k in os.environ.keys() if 'NVIDIA' in k.upper() or 'NVAPI' in k.upper())
     return jsonify({
         "status": "healthy",
         "groq_configured": GROQ_API_KEY is not None,
+        "runtime_key_present": runtime_key is not None,
+        "runtime_key_len": len(runtime_key) if runtime_key else 0,
+        "nvidia_env_keys": nvidia_env_keys,
         "vision_model": VISION_MODEL,
         "text_model": TEXT_MODEL
     })
